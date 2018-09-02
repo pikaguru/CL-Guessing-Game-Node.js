@@ -2,7 +2,7 @@ const readlineSync = require('readline-sync');
 
 function userStart() {
     const name = readlineSync.question('HI! What is your name?');
-    console.log('Nice! ' + name + ' , thanks for joining me! ');
+    console.log(`Thanks for joining me ${name}, wanna play a nifty game? In this game all you have to do, is pick a number, as high as you choose. The higher you choose, you harder the game, cause it's the highest number that you will have to guess! I'll generate a number between 1 and your choice. Then you Guess. Ready?`);
     getMaxFromUser(name);
     //let sum = max + 5;
     //console.log('The sum of ' + max + ' plus ' + 5 + ' equals ' + sum + '.');
@@ -11,19 +11,24 @@ function userStart() {
 userStart();
 
 function getMaxFromUser(name) {
-    let max = readlineSync.questionInt('Pick any number greater than 0! picking 0 will lose!');
+    let max = readlineSync.questionInt('Pick your number, ' + name + '!');
     
-    if (max===0) {console.log('Cmon, dude. At least play by the rules! Please dont test me');
-    getMaxFromUser();}
+    if (max===0) {console.log('0 is invalid input. Game Over. Feel free to play again!');
+    return;}
     generateRandomNumber(name, max);
    
 }
-
-function getGuessFromUser(max) {
+function guessNum() {
+    let attempt=0; 
+    for (attempt=0; attempt>=1; attempt++) {
+        return;
+    }
+}
+function getGuessFromUser(max, attempt) {
+    attempt++;
     let guess = readlineSync.questionInt('Please guess a number less than or equal to ' + max + '!');
     return guess;
 }
-
 
 function generateRandomNumber(name, max) {
     let goal = Math.floor(Math.random() * max + 1);
@@ -53,6 +58,7 @@ function isGuessCorrect(name, guess, goal, max) {
     } else if (guess < goal) {
         console.log('Too low! Please guess again!');
         return false;
+        guess++;
     } else if (guess > max) {
         console.log('Dont guess higher than max!');
         return false;
